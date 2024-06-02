@@ -2,7 +2,10 @@
 <main>
   <ul id="users">
     <li *ngFor="let item of userList">
-      <app-user [id]="item.id" [avatar]="item.avatar" [name]="item.name" (userSelected)="userSelected($event)"/>
+      <app-user [userObj]="item" (userSelected)="userSelected($event)"/>
     </li>
   </ul>
+  <section id="fallback">
+    <app-tasks [name]="selectedUser?.name??''"/>
+  </section>
 </main>

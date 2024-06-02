@@ -1,6 +1,6 @@
 <div>
   <button (click)="onSelectedUser()">
-    <img [ngSrc]="imagePath()" [alt]="name()" width="600" height="600"/>
-    <span>{{ name() }}</span>
+    <img [ngSrc]="imagePath()" [alt]="userObj().name" width="600" height="600" priority/>
+    <span>{{ userObj().name }}</span>
   </button>
 </div>
