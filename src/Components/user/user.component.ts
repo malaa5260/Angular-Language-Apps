@@ -1,5 +1,4 @@
-import {Component} from '@angular/core';
-import {DUMMY_USERS} from './dummy-users'
+import {Component, computed, EventEmitter, input, Input, InputSignal, Output, Signal } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 
 @Component({
@@ -13,15 +12,20 @@ import {NgOptimizedImage} from "@angular/common";
 })
 
 export class UserComponent {
-  randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-  selectedUser = DUMMY_USERS[this.randomIndex];
+  //@Input({required:true }) avatar: string='';
+  //@Input({required: true}) name: string = '';
+  @Output() userSelected: EventEmitter<string> = new EventEmitter();
+  avatar: InputSignal<string> = input.required<string>();
+  name: InputSignal<string> = input.required<string>();
+  id: InputSignal<string> = input.required<string>();
+  imagePath: Signal<string> = computed(() => {
+    return 'assets/users/' + this.avatar();
+  })
+  // get imagePath(): string {
+  //   return 'assets/users/' + this.avatar();
+  // }
 
-  get imagePath(): string {
-    return 'assets/users/' + this.selectedUser.avatar;
-  }
-
-  onSelectedUser() {
-    this.randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-    this.selectedUser = DUMMY_USERS[this.randomIndex];
+  onSelectedUser(): void {
+    this.userSelected.emit(this.id());
   }
 }
