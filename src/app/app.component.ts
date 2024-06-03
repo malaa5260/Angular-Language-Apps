@@ -1,7 +1,7 @@
 import {Component, computed, signal, Signal} from '@angular/core';
 import {HeaderComponent} from "../Components/header/header.component";
 import {UserComponent} from "../Components/user/user.component";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {DUMMY_USERS} from "../Components/user/dummy-users";
 import {TasksComponent} from "../Components/tasks/tasks.component";
 
@@ -12,7 +12,8 @@ import {TasksComponent} from "../Components/tasks/tasks.component";
     HeaderComponent,
     UserComponent,
     NgForOf,
-    TasksComponent
+    TasksComponent,
+    NgIf
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
@@ -20,7 +21,7 @@ import {TasksComponent} from "../Components/tasks/tasks.component";
 export class AppComponent {
   title = 'my-first-app';
   userList = DUMMY_USERS;
-  selectedUserId = signal<string>('u1');
+  selectedUserId = signal<string>('');
 
   get selectedUser() {
     return this.userList.find(item => item.id === this.selectedUserId());
