@@ -1,5 +1,5 @@
 <div>
-  <button (click)="onSelectedUser()">
+  <button [class.active]="activeButton()" (click)="onSelectedUser()">
     <img [ngSrc]="imagePath()" [alt]="userObj().name" width="600" height="600" priority/>
     <span>{{ userObj().name }}</span>
   </button>

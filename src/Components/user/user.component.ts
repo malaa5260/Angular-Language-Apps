@@ -7,10 +7,11 @@ import {
   InputSignal,
   output,
   Output,
-  OutputEmitterRef,
-  Signal
+  OutputEmitterRef, signal,
+  Signal, WritableSignal
 } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
+import {type User} from "./user.model";
 
 @Component({
   selector: 'app-user',
@@ -30,8 +31,8 @@ export class UserComponent {
   // name: InputSignal<string> = input.required<string>();
   // id: InputSignal<string> = input.required<string>();
 
-  userObj:InputSignal<User>=input.required<User>();
-
+  userObj: InputSignal<User> = input.required<User>();
+  activeButton:InputSignal<boolean>=input.required<boolean>();
   userSelected: OutputEmitterRef<string> = output<string>();
   imagePath: Signal<string> = computed(() => {
     return 'assets/users/' + this.userObj().avatar;
@@ -45,8 +46,4 @@ export class UserComponent {
   }
 }
 
-export interface User {
-  id: string;
-  name: string;
-  avatar: string;
-}
+
