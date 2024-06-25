@@ -1,5 +1,5 @@
 import {Component, input, InputSignal} from '@angular/core';
-import { TaskComponent} from "./task/task.component";
+import {TaskComponent} from "./task/task.component";
 import {dummyTasks} from "./dummy-tasks";
 
 @Component({
@@ -15,7 +15,12 @@ export class TasksComponent {
   name: InputSignal<string> = input.required<string>();
   userId: InputSignal<string> = input.required<string>();
   taskList = dummyTasks;
-  get selectedUserTask(){
+
+  get selectedUserTask() {
     return this.taskList.filter((task) => task.userId === this.userId());
+  }
+
+  onCompleteTask(taskId: string): void {
+    this.taskList = this.taskList.filter((task) => task.id !== taskId);
   }
 }
