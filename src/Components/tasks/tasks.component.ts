@@ -3,6 +3,7 @@ import {TaskComponent} from "./task/task.component";
 import {dummyTasks} from "./dummy-tasks";
 import {NewTaskComponent} from "./new-task/new-task.component";
 import type {NewTaskData} from "./task.model";
+import {TasksService} from "./tasks.service";
 
 @Component({
   selector: 'app-tasks',
@@ -20,27 +21,29 @@ export class TasksComponent {
   taskList = dummyTasks;
   isAddTask: boolean = false;
 
-  get selectedUserTask() {
-    return this.taskList.filter((task) => task.userId === this.userId());
+  constructor(private tasksService: TasksService) {
   }
 
-  onCompleteTask(taskId: string): void {
-    this.taskList = this.taskList.filter((task) => task.id !== taskId);
+  get selectedUserTask() {
+    return this.tasksService.getUserTasks(this.userId());
   }
+
 
   onStartAddTask(): void {
     this.isAddTask = true;
   }
-  onCancelAddTask(): void {
+
+  onCloseAddTask(): void {
     this.isAddTask = false;
   }
-  onAddTask(taskData:NewTaskData){
+
+  onAddTask(taskData: NewTaskData) {
     this.taskList.unshift({
-      id:new Date().getTime().toString(),
+      id: new Date().getTime().toString(),
       userId: this.userId(),
-      title:taskData.title,
-      summary:taskData.summary,
-      dueDate:taskData.date,
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.date,
     });
     this.isAddTask = false;
   }
